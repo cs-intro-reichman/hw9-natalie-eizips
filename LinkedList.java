@@ -255,30 +255,6 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		//If it is an empty list
-		if (first == null){
-			return "()";
-		}
-		//If it is not an empty list
-		StringBuilder sb = new StringBuilder();
-		ListIterator itr = iterator();
-		//appends each block to the string builder
-		while (itr.hasNext()) {
-			MemoryBlock zero = new MemoryBlock(0,0);
-			if (itr.current.block.equals(zero)){
-				continue;
-			}
-			sb.append("(")
-			  .append(itr.current.block.baseAddress)
-			  .append(" , ")
-			  .append(itr.current.block.length)
-			  .append(")");
-			itr.next();
-			if (itr.current != null) {
-				sb.append(" ");
-			}
-		}
-		//closes the list and returns the string
-		return sb.toString();
+		return " ";
 	}
 }
