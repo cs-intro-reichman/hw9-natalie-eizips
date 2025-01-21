@@ -96,6 +96,7 @@ public class LinkedList {
 			first = insert;
 			//If the size is 0, then the node will be the first and the last
 			if (size == 0) {
+				first = insert;
 				last = insert;
 			}
 		}
@@ -105,7 +106,7 @@ public class LinkedList {
 			last = insert;
 		}
 		//Inserting the node in the middle
-		else{
+		else {
 			ListIterator itr = this.iterator();
 			for (int i = 0; i < index; i++){
 				itr.next();
@@ -124,7 +125,15 @@ public class LinkedList {
 	 *        the given memory block
 	 */
 	public void addLast(MemoryBlock block) {
-		this.add(size, block);
+		Node node1 = new Node(block);
+		if (size == 0) {
+			first = node1;
+			last = node1;
+		} else {
+			last.next = node1;
+			last = node1;
+		}
+		size++;
 	}
 	
 	/**
