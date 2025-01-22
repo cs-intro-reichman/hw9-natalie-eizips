@@ -169,7 +169,7 @@ public class LinkedList {
 	 */
 	public MemoryBlock getBlock(int index) {
 		//Checks that the index is well-defined
-		if (index < 0 || index > size) {
+		if (index < 0 || index > size || size == 0) {
 			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 		//Gets the node at the desired index
@@ -185,16 +185,15 @@ public class LinkedList {
 	 * @return the index of the block, or -1 if the block is not in this list
 	 */
 	public int indexOf(MemoryBlock block) {
-		//Calls the iterator
-		ListIterator itr = this.iterator();
+		Node current = first;
 		int index = 0;
 		//Breaks from the loop when the iterator goes through the whole list
-		while (itr.hasNext()){
+		while (current.next != null){
 			//returns the index if it finds the block
-			if (itr.current.block.equals(block)){
+			if (current.block.equals(block)){
 				return index;
 			}
-			itr.next();
+			current = current.next;
 			index++;
 		}
 		return -1;
