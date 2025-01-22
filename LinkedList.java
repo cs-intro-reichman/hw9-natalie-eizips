@@ -94,11 +94,6 @@ public class LinkedList {
 		if (index == 0){
 			insert.next = first;
 			first = insert;
-			//If the size is 0, then the node will be the first and the last
-			if (size == 0) {
-				first = insert;
-				last = insert;
-			}
 		}
 		//If the index is the size, add to the end of the list
 		if (index == size){
@@ -126,10 +121,11 @@ public class LinkedList {
 	 */
 	public void addLast(MemoryBlock block) {
 		Node node1 = new Node(block);
-		if (size == 0) {
+		if (first == null) {
 			first = node1;
 			last = node1;
-		} else {
+		} 
+		else {
 			last.next = node1;
 			last = node1;
 		}
