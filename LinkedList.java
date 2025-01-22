@@ -96,24 +96,23 @@ public class LinkedList {
 			first = insert;
 			//If the size is 0, then the node will be the first and the last
 			if (size == 0) {
-				last = insert;
+				last = first;
 			}
 		}
-		//If the index is the size, add to the end of the list
-		if (index == size){
+		else if (index == size){
 			last.next = insert;
 			last = insert;
 		}
 		//Inserting the node in the middle
-		else{
-			Node prev = null;
-			Node current = first;
-			for (int i = 0; i < index; i++){
-				current = current.next;
-				prev = current;
+		if (index <= size - 1){
+			ListIterator itr = this.iterator();
+			int counter = 0;
+			while(itr.hasNext() && counter < index - 1){
+				itr.next();
+				counter ++;
 			}
-			prev.next = insert;
-			insert.next = current;
+			itr.current.next = insert;
+			insert = itr.current;
 		}
 		size++;
 	}
@@ -274,24 +273,13 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		//If it is an empty list
-		if (first == null){
-			return "[]";
-		}
-		//If it is not an empty list
-		StringBuilder sb = new StringBuilder("(");
+		String result = "";
 		ListIterator itr = iterator();
 		//appends each block to the string builder
 		while (itr.hasNext()){
-			sb.append(itr.current.block);
-			//adds a space only if the next one is not null
-			if (!itr.hasNext()){
-				sb.append(" ");
-			}
+			result += "(" + itr.current.block.baseAddress + " , " + itr.current.block.length + ") ";
 			itr.next();
-		}
-		//closes the list and returns the string
-		sb.append(")");
-		return sb.toString();
+	}
+	return result;
 	}
 }
