@@ -94,6 +94,10 @@ public class LinkedList {
 		if (index == 0){
 			insert.next = first;
 			first = insert;
+			//If the size is 0, then the node will be the first and the last
+			if (size == 0) {
+				last = insert;
+			}
 		}
 		//If the index is the size, add to the end of the list
 		if (index == size){
@@ -101,13 +105,15 @@ public class LinkedList {
 			last = insert;
 		}
 		//Inserting the node in the middle
-		else {
-			ListIterator itr = this.iterator();
+		else{
+			Node prev = null;
+			Node current = first;
 			for (int i = 0; i < index; i++){
-				itr.next();
+				current = current.next;
+				prev = current;
 			}
-			insert.next = itr.current.next;
-			itr.current.next = insert;
+			prev.next = insert;
+			insert.next = current;
 		}
 		size++;
 	}
@@ -120,14 +126,14 @@ public class LinkedList {
 	 *        the given memory block
 	 */
 	public void addLast(MemoryBlock block) {
-		Node node1 = new Node(block);
-		if (first == null) {
-			first = node1;
-			last = node1;
-		} 
+		Node newNode = new Node(block);
+		if (first == null){
+			first = newNode;
+			last = newNode;
+		}
 		else {
-			last.next = node1;
-			last = node1;
+			last.next = newNode;
+			last = newNode;
 		}
 		size++;
 	}
@@ -140,7 +146,16 @@ public class LinkedList {
 	 *        the given memory block
 	 */
 	public void addFirst(MemoryBlock block) {
-		this.add(0, block);
+		Node newNode = new Node(block);
+		if (first == null){
+			first = newNode;
+			last = newNode;
+		}
+		else{
+			newNode.next = first;
+			first = newNode;
+		}
+		size++;
 	}
 
 	/**
@@ -260,6 +275,24 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		return " ";
+		//If it is an empty list
+		if (first == null){
+			return "[]";
+		}
+		//If it is not an empty list
+		StringBuilder sb = new StringBuilder("(");
+		ListIterator itr = iterator();
+		//appends each block to the string builder
+		while (itr.hasNext()){
+			sb.append(itr.current.block);
+			//adds a space only if the next one is not null
+			if (!itr.hasNext()){
+				sb.append(" ");
+			}
+			itr.next();
+		}
+		//closes the list and returns the string
+		sb.append(")");
+		return sb.toString();
 	}
 }
